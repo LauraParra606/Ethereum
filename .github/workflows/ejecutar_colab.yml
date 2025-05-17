@@ -18,14 +18,15 @@ jobs:
         with:
           python-version: 3.9  # o la versión que estés usando
 
-      - name: Instalar dependencias
+      - name: Crear entorno virtual e instalar dependencias
         run: |
           python -m venv venv  # Usar el módulo venv
-          source venv/bin/activate
+          source venv/bin/activate  # Activar el entorno virtual
           pip install papermill  # Instalar papermill
 
       - name: Ejecutar el cuaderno
         run: |
+          source venv/bin/activate  # Asegurarse de activar el entorno virtual
           NOTEBOOK_PATH="Untitled14.ipynb"  # Reemplaza con tu nombre de cuaderno
           OUTPUT_NOTEBOOK="output_cuaderno.ipynb"  # El archivo de salida
-          papermill $NOTEBOOK_PATH $OUTPUT_NOTEBOOK  # Ejecuta el cuaderno con papermill
+          papermill $NOTEBOOK_PATH $OUTPUT_NOTEBOOK  # Ejecutar el cuaderno con papermill
