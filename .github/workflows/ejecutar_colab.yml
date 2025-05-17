@@ -1,9 +1,9 @@
-name: Ejecutar Colab
+name: Ejecutar Cuaderno
 
 on:
   schedule:
     - cron: "0 2 * * *"  # Se ejecuta a las 2:00 AM UTC todos los días
-  workflow_dispatch: # Permite la ejecución manual desde la interfaz de GitHub Actions
+  workflow_dispatch:  # Permite la ejecución manual desde la interfaz de GitHub Actions
 
 jobs:
   build:
@@ -16,23 +16,16 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9 # o la versión que estés usando
-
-      - name: Autenticar con Google Cloud
-        uses: google-github-actions/auth@v1
-        with:
-          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+          python-version: 3.9  # o la versión que estés usando
 
       - name: Instalar dependencias
         run: |
-          python -m venv venv # Usar el módulo venv
+          python -m venv venv  # Usar el módulo venv
           source venv/bin/activate
-          pip install google-api-python-client oauth2client google-colab
+          pip install papermill  # Instalar papermill
 
-      - name: Ejecutar el cuaderno de Colab
+      - name: Ejecutar el cuaderno
         run: |
-          # Reemplaza con la ruta a tu cuaderno en el repositorio
-          NOTEBOOK_PATH="nombre_de_tu_cuaderno.ipynb"
-          # El nombre del archivo de salida .ipynb
-          OUTPUT_NOTEBOOK="output.ipynb"
-          python -c "from google.colab import drive; drive.mount('/content/drive'); import subprocess; subprocess.run(['colab', 'run', '$NOTEBOOK_PATH', '--output', '$OUTPUT_NOTEBOOK']);"
+          NOTEBOOK_PATH="Untitled14.ipynb"  # Reemplaza con tu nombre de cuaderno
+          OUTPUT_NOTEBOOK="output_cuaderno.ipynb"  # El archivo de salida
+          papermill $NOTEBOOK_PATH $OUTPUT_NOTEBOOK  # Ejecuta el cuaderno con papermill
