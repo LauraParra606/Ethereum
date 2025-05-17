@@ -22,7 +22,8 @@ jobs:
         run: |
           python -m venv venv  # Usar el módulo venv
           source venv/bin/activate  # Activar el entorno virtual
-          pip install papermill  # Instalar papermill
+          pip install papermill ipykernel  # Instalar papermill y ipykernel
+          python -m ipykernel install --user --name=python3 --display-name "Python 3"  # Registrar el kernel
 
       - name: Ejecutar el cuaderno
         run: |
