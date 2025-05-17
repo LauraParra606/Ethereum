@@ -25,8 +25,7 @@ jobs:
 
       - name: Instalar dependencias
         run: |
-          pip install virtualenv
-          virtualenv venv
+          python -m venv venv # Usar el módulo venv
           source venv/bin/activate
           pip install google-api-python-client oauth2client google-colab
 
